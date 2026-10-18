@@ -30,7 +30,7 @@
             min-height: 100vh;
             min-height: 100dvh;
             margin: 0;
-            padding: 24px 14px;
+            padding: 16px;
             background: var(--page);
             color: var(--ink);
             font-family: Arial, Helvetica, sans-serif;
@@ -40,7 +40,12 @@
         [hidden] { display: none !important; }
 
         .app-shell {
-            width: min(100%, 560px);
+            display: flex;
+            width: min(100%, 960px);
+            height: calc(100vh - 32px);
+            height: calc(100dvh - 32px);
+            min-height: 480px;
+            flex-direction: column;
             margin: 0 auto;
             padding: 18px;
             border: 1px solid #e8e8e8;
@@ -122,8 +127,9 @@
 
         .chat-box {
             display: flex;
-            min-height: 280px;
-            max-height: min(52vh, 520px);
+            min-height: 0;
+            max-height: none;
+            flex: 1 1 auto;
             flex-direction: column;
             gap: 15px;
             margin-top: 10px;
@@ -249,7 +255,7 @@
             font-size: 10px;
         }
 
-        @media (max-width: 420px) {
+        @media (max-width: 500px) {
             body {
                 height: var(--mobile-app-height, 100vh);
                 height: var(--mobile-app-height, 100dvh);
@@ -373,7 +379,7 @@
     // Standalone mobile browsers can report a stale CSS viewport on first open.
     // Track the visible viewport so the composer and connection note fit together.
     function syncMobileAppHeight() {
-        if (window.matchMedia("(max-width: 420px)").matches) {
+        if (window.matchMedia("(max-width: 500px)").matches) {
             const height = window.visualViewport?.height || window.innerHeight;
             document.documentElement.style.setProperty("--mobile-app-height", `${Math.round(height)}px`);
         } else {
