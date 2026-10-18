@@ -287,10 +287,39 @@
                 z-index: 2;
                 flex: 0 0 auto;
                 margin-top: auto;
-                padding-bottom: max(5px, env(safe-area-inset-bottom));
+                padding: 5px;
+                padding-bottom: max(10px, env(safe-area-inset-bottom));
+                border: 1px solid #858585 !important;
+                border-radius: 12px !important;
                 background: var(--surface);
             }
-            #prompt { min-height: 64px; max-height: 24dvh; resize: none; }
+            #chat-form .composer {
+                height: 104px !important;
+                min-height: 104px;
+                margin-bottom: 8px !important;
+                flex: 0 0 104px;
+            }
+            #prompt {
+                height: 100%;
+                min-height: 0;
+                max-height: none;
+                resize: none;
+                padding: 12px;
+                font-size: 16px;
+                line-height: 1.4;
+                -webkit-appearance: none;
+                appearance: none;
+                opacity: 1;
+                color: var(--ink);
+                background-color: #fff;
+            }
+            #prompt::placeholder { color: #777; opacity: 1; }
+            .composer-actions { flex: 0 0 auto; }
+            .clear-button, .send-button {
+                min-height: 44px;
+                flex: 0 0 auto;
+                touch-action: manipulation;
+            }
             .footer-note { flex: 0 0 auto; margin-top: 10px; }
         }
     </style>
