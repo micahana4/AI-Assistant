@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ppv0%l(xv7+$1kzy!)9v2err#@-t_!slxj8vu@-vzljw6^d_m_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ClassAIAssistant.pythonanywhere.com']
+ALLOWED_HOSTS = ['ClassAIAssistant.pythonanywhere.com', '127.0.0.1']
 
 # Application definition
 
