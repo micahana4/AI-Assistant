@@ -251,8 +251,8 @@
 
         @media (max-width: 420px) {
             body {
-                height: 100vh;
-                height: 100dvh;
+                height: var(--mobile-app-height, 100vh);
+                height: var(--mobile-app-height, 100dvh);
                 min-height: 0;
                 overflow: hidden;
                 padding: 0;
@@ -261,8 +261,8 @@
             .app-shell {
                 display: flex;
                 width: 100%;
-                height: 100vh;
-                height: 100dvh;
+                height: var(--mobile-app-height, 100vh);
+                height: var(--mobile-app-height, 100dvh);
                 min-height: 0;
                 flex-direction: column;
                 padding: max(14px, env(safe-area-inset-top)) 12px
@@ -288,7 +288,7 @@
                 flex: 0 0 auto;
                 margin-top: auto;
                 padding: 5px;
-                padding-bottom: max(10px, env(safe-area-inset-bottom));
+                padding-bottom: 5px;
                 border: 1px solid #858585 !important;
                 border-radius: 12px !important;
                 background: var(--surface);
@@ -320,7 +320,7 @@
                 flex: 0 0 auto;
                 touch-action: manipulation;
             }
-            .footer-note { flex: 0 0 auto; margin-top: 10px; }
+            .footer-note { flex: 0 0 auto; margin: 10px 0 0; padding-bottom: 2px; }
         }
     </style>
 </head>
@@ -370,6 +370,21 @@
 <script src="https://cdn.jsdelivr.net/npm/marked@18.1.0/lib/marked.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.17/dist/purify.min.js"></script>
 <script>
+    // Standalone mobile browsers can report a stale CSS viewport on first open.
+    // Track the visible viewport so the composer and connection note fit together.
+    function syncMobileAppHeight() {
+        if (window.matchMedia("(max-width: 420px)").matches) {
+            const height = window.visualViewport?.height || window.innerHeight;
+            document.documentElement.style.setProperty("--mobile-app-height", `${Math.round(height)}px`);
+        } else {
+            document.documentElement.style.removeProperty("--mobile-app-height");
+        }
+    }
+    syncMobileAppHeight();
+    window.addEventListener("resize", syncMobileAppHeight);
+    window.visualViewport?.addEventListener("resize", syncMobileAppHeight);
+    window.addEventListener("orientationchange", () => setTimeout(syncMobileAppHeight, 150));
+
     const form = document.getElementById("chat-form");
     const promptInput = document.getElementById("prompt");
     const chatBox = document.getElementById("chat-box");
